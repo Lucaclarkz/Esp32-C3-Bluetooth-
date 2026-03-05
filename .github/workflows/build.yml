@@ -22,8 +22,7 @@ jobs:
 
       - name: Compile
         run: |
-          # အောက်က line ကို သေချာကြည့်ပါ၊ ဖိုင်ကို ရှာဖွေဖို့ ပြင်ထားပါတယ်
-          arduino-cli compile --fqbn esp32:esp32:esp32c3 --output-dir ./build *.ino
+          arduino-cli compile --fqbn esp32:esp32:esp32c3 --output-dir ./build ./drone/drone_code.ino
 
       - name: Upload
         uses: actions/upload-artifact@v4
