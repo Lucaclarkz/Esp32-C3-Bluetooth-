@@ -1,34 +1,33 @@
-name: Build ESP32-C3 Firmware
-
-on: [push, pull_request]
-
+name: Build Drone Firmware
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Setup Arduino CLI
+      - name: Arduino CLI
         uses: arduino/setup-arduino-cli@v1
 
-      - name: Install ESP32 Platform
+      - name: Install Platform
         run: |
           arduino-cli core update-index --additional-urls https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
           arduino-cli core install esp32:esp32 --additional-urls https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
 
-      - name: Install Libraries
+      - name: Install Libs
         run: |
           arduino-cli lib install "MPU6050_light"
           arduino-cli lib install "Dabble"
 
-      - name: Compile Sketch
+      - name: Compile
         run: |
-          arduino-cli compile --fqbn esp32:esp32:esp32c3 --output-dir ./build drone_code.ino
+          # အောက်က line ကို သေချာကြည့်ပါ၊ ဖိုင်ကို ရှာဖွေဖို့ ပြင်ထားပါတယ်
+          arduino-cli compile --fqbn esp32:esp32:esp32c3 --output-dir ./build *.ino
 
-      - name: Upload Binary Artifact
+      - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: esp32c3-drone-firmware
+          name: Drone-Bin-File
           path: ./build/*.bin
+          
