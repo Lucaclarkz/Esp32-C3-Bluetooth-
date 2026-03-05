@@ -22,7 +22,8 @@ jobs:
 
       - name: Compile
         run: |
-          arduino-cli compile --fqbn esp32:esp32:esp32c3 --output-dir ./build ./drone/drone_code.ino
+          # လက်ရှိ ဖိုင်တည်ရှိပုံအရ drone/ ကို ဖြုတ်ပြီး ပြင်ထားပါတယ်
+          arduino-cli compile --fqbn esp32:esp32:esp32c3 --output-dir ./build ./drone_code.ino
 
       - name: Upload
         uses: actions/upload-artifact@v4
